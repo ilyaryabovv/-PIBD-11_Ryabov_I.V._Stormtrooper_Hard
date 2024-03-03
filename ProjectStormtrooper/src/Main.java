@@ -1,5 +1,8 @@
+import java.awt.*;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        FormStormtrooper form = new FormStormtrooper("Бомбардировщик", new Dimension(800,800));
+        form.Init();
     }
 }
