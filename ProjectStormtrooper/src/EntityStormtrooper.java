@@ -12,7 +12,6 @@ public class EntityStormtrooper {
     public Color getBodyColor() {
         return BodyColor;
     }
-
     private Color AdditionalColor;
     public Color getAdditionalColor() {
         return AdditionalColor;

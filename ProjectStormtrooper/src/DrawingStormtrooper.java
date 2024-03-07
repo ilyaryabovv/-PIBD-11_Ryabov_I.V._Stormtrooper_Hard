@@ -49,13 +49,13 @@ public class DrawingStormtrooper {
         EntityStormtrooper = new EntityStormtrooper();
         EntityStormtrooper.Init(speed, weight, bodyColor, additionalColor, rockets,bombs ,engines);
         if(engines==true){
-            drawingEngines = new DrawingEngines((int)((Math.random()*3)+1)*2);
+            drawingEngines = new DrawingEngines();
+            drawingEngines.setAmountOfEngines((int)((Math.random()*3)+1)*2);;
         }
         _startPosX=null;
         _startPosY=null;
         _pictureWidth = null;
         _pictureHeight = null;
-        
     }
     /// <summary>
     /// Установка границ поля
@@ -203,6 +203,7 @@ public class DrawingStormtrooper {
         g.drawLine(_startPosX+ 50, _startPosY, _startPosX + 60, _startPosY);
         g.drawLine(_startPosX+ 60, _startPosY, _startPosX + 65, _startPosY + 60);
         ///Нос бомбардировщика
+        g.setColor(EntityStormtrooper.getBodyColor());
         Point[] Nose = new Point[3];
         int[] arrX = {_startPosX + 20, _startPosX,_startPosX+20};
         int[] arrY = {_startPosY + 80,_startPosY + 70,_startPosY + 60};
@@ -214,7 +215,6 @@ public class DrawingStormtrooper {
             g.setColor(EntityStormtrooper.getAdditionalColor());
             g.fillRect( _startPosX + 35, _startPosY + 20, 15, 5);
             g.fillRect( _startPosX + 35, _startPosY + 110, 15, 5);
-
         }
         //Бомбы бомбардировщика
         if (EntityStormtrooper.getBombs())
@@ -224,26 +224,7 @@ public class DrawingStormtrooper {
             g.fillRect(_startPosX + 40, _startPosY + 90, 10, 10);
         }
         if(EntityStormtrooper.getEngines() && drawingEngines!=null){
-            switch(drawingEngines.getNumberOfEngines()){
-                case TWO:
-                    drawingEngines.DrawDecks(g,_startPosX + 65, _startPosY + 50, 10, 10,EntityStormtrooper.getBodyColor());
-                    drawingEngines.DrawDecks(g,_startPosX + 65, _startPosY + 81, 10, 10,EntityStormtrooper.getBodyColor());
-                    break;
-                case FOUR:
-                    drawingEngines.DrawDecks(g,_startPosX + 62, _startPosY + 10, 10, 10,EntityStormtrooper.getBodyColor());
-                    drawingEngines.DrawDecks(g,_startPosX + 64, _startPosY + 101, 10, 10,EntityStormtrooper.getBodyColor());
-                    drawingEngines.DrawDecks(g,_startPosX + 64, _startPosY + 30, 10, 10,EntityStormtrooper.getBodyColor());
-                    drawingEngines.DrawDecks(g,_startPosX + 62, _startPosY + 121, 10, 10,EntityStormtrooper.getBodyColor());
-                    break;
-                case SIX:
-                    drawingEngines.DrawDecks(g,_startPosX + 62, _startPosY + 10, 10, 10,EntityStormtrooper.getBodyColor());
-                    drawingEngines.DrawDecks(g,_startPosX + 64, _startPosY + 30, 10, 10,EntityStormtrooper.getBodyColor());
-                    drawingEngines.DrawDecks(g,_startPosX + 65, _startPosY + 50, 10, 10,EntityStormtrooper.getBodyColor());
-                    drawingEngines.DrawDecks(g,_startPosX + 65, _startPosY + 81, 10, 10,EntityStormtrooper.getBodyColor());
-                    drawingEngines.DrawDecks(g,_startPosX + 64, _startPosY + 101, 10, 10,EntityStormtrooper.getBodyColor());
-                    drawingEngines.DrawDecks(g,_startPosX + 62, _startPosY + 121, 10, 10,EntityStormtrooper.getBodyColor());
-                    break;
-            }
+            drawingEngines.SwitchDrawEngines(g, _startPosX, _startPosY, EntityStormtrooper.getBodyColor());
         }
     }
 }

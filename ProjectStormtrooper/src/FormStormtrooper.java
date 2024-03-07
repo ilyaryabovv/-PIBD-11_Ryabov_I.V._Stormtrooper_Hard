@@ -7,16 +7,16 @@ import java.awt.event.ComponentEvent;
 import java.util.Random;
 
 public class FormStormtrooper extends JFrame {
-    private String title;
-    private Dimension dimension;
+    private final String title;
+    private final Dimension dimension;
     private int Width;
     private int Height;
-    private CanvasStormtrooper canvasStormtrooper = new CanvasStormtrooper();
-    private JButton CreateButton = new JButton("Создать");;
-    private JButton UpButton = new JButton();
-    private JButton DownButton = new JButton();;
-    private JButton LeftButton = new JButton();;
-    private JButton RightButton = new JButton();
+    private final CanvasStormtrooper canvasStormtrooper = new CanvasStormtrooper();
+    private final JButton CreateButton = new JButton("Создать");
+    private final JButton UpButton = new JButton();
+    private final JButton DownButton = new JButton();
+    private final JButton LeftButton = new JButton();
+    private final JButton RightButton = new JButton();
     public FormStormtrooper(String title, Dimension dimension) {
         this.title = title;
         this.dimension = dimension;
@@ -25,23 +25,21 @@ public class FormStormtrooper extends JFrame {
         setTitle(title);
         setMinimumSize(dimension);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Width = getWidth() - 15;
-        Height = getHeight() - 35;
-
+        Width = getWidth() - 13;
+        Height = getHeight() - 30;
         CreateButton.setName("createButton");
-        Icon iconUp = new ImageIcon("src\\Resources\\arrowUp.png");
+        Icon iconUp = new ImageIcon("Resources\\arrowUp.jpg");
         UpButton.setIcon(iconUp);
         UpButton.setName("UP");
         DownButton.setName("DOWN");
-        Icon iconDown = new ImageIcon("src\\Resources\\arrowDown.png");
+        Icon iconDown = new ImageIcon("Resources\\arrowDown.jpg");
         DownButton.setIcon(iconDown);
         LeftButton.setName("LEFT");
-        Icon iconLeft = new ImageIcon("src\\Resources\\arrowLeft.png");
+        Icon iconLeft = new ImageIcon("Resources\\arrowLeft.jpg");
         LeftButton.setIcon(iconLeft);
         RightButton.setName("RIGHT");
-        Icon iconRight = new ImageIcon("arrowRight.png");
+        Icon iconRight = new ImageIcon("Resources\\arrowRight.jpg");
         RightButton.setIcon(iconRight);
-
         CreateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -50,12 +48,12 @@ public class FormStormtrooper extends JFrame {
                 int speed = (int)(Math.random() * 300 + 100);
                 float weight = (float) (Math.random() * 3000 + 1000);
                 Color bodyColor = new Color((int)(Math.random() * 255 + 0),(int)(Math.random() * 255 + 0),(int)(Math.random() * 255 + 0));
-                Color additionalColor = new Color((int)(Math.random() * 255 + 0),(int)(Math.random() * 255 + 0),(int)(Math.random() * 255 + 0));;
+                Color additionalColor = new Color((int)(Math.random() * 255 + 0),(int)(Math.random() * 255 + 0),(int)(Math.random() * 255 + 0));
                 boolean rockets = new Random().nextBoolean();
-                boolean boombs = new Random().nextBoolean();;
-                boolean engines = new Random().nextBoolean();;
+                boolean bombs = new Random().nextBoolean();
+                boolean engines = new Random().nextBoolean();
                 canvasStormtrooper._drawingStormtrooper = new DrawingStormtrooper();
-                canvasStormtrooper._drawingStormtrooper.Init(speed, weight, bodyColor, additionalColor,rockets, boombs, engines);
+                canvasStormtrooper._drawingStormtrooper.Init(speed, weight, bodyColor, additionalColor,rockets, bombs, engines);
                 canvasStormtrooper._drawingStormtrooper.SetPictureSize(Width, Height);
                 canvasStormtrooper._drawingStormtrooper.SetPosition( StartPositionX, StartPositionY);
                 canvasStormtrooper.repaint();
@@ -66,21 +64,13 @@ public class FormStormtrooper extends JFrame {
             @Override
             public void actionPerformed(ActionEvent event) {
                 if (canvasStormtrooper._drawingStormtrooper == null) return;
-                boolean result = false;
-                switch ((((JButton)(event.getSource())).getName())) {
-                    case "UP":
-                        result = canvasStormtrooper._drawingStormtrooper.MoveTransport(DirectionType.Up);
-                        break;
-                    case "DOWN":
-                        result = canvasStormtrooper._drawingStormtrooper.MoveTransport(DirectionType.Down);
-                        break;
-                    case "LEFT":
-                        result = canvasStormtrooper._drawingStormtrooper.MoveTransport(DirectionType.Left);
-                        break;
-                    case "RIGHT":
-                        result = canvasStormtrooper._drawingStormtrooper.MoveTransport(DirectionType.Right);
-                        break;
-                }
+                boolean result = switch ((((JButton) (event.getSource())).getName())) {
+                    case "UP" -> canvasStormtrooper._drawingStormtrooper.MoveTransport(DirectionType.Up);
+                    case "DOWN" -> canvasStormtrooper._drawingStormtrooper.MoveTransport(DirectionType.Down);
+                    case "LEFT" -> canvasStormtrooper._drawingStormtrooper.MoveTransport(DirectionType.Left);
+                    case "RIGHT" -> canvasStormtrooper._drawingStormtrooper.MoveTransport(DirectionType.Right);
+                    default -> false;
+                };
                 if (result) {
                     canvasStormtrooper.repaint();
                 }
@@ -90,15 +80,14 @@ public class FormStormtrooper extends JFrame {
         DownButton.addActionListener(actionListener);
         LeftButton.addActionListener(actionListener);
         RightButton.addActionListener(actionListener);
-
         setSize(dimension.width,dimension.height);
         setLayout(null);
         canvasStormtrooper.setBounds(0,0, getWidth(), getHeight());
-        CreateButton.setBounds(10, getHeight() - 90, 100, 40);
-        UpButton.setBounds(getWidth() - 140, getHeight() - 160, 50, 50);
-        DownButton.setBounds(getWidth() - 140, getHeight() - 100, 50, 50);
-        RightButton.setBounds(getWidth() - 80, getHeight() - 100, 50, 50);
-        LeftButton.setBounds(getWidth() - 200, getHeight() - 100, 50, 50);
+        CreateButton.setBounds(10, getHeight() - 90, 130, 40);
+        UpButton.setBounds(getWidth() - 180, getHeight() - 210, 70, 70);
+        DownButton.setBounds(getWidth() - 180, getHeight() - 140, 70, 70);
+        RightButton.setBounds(getWidth() - 110, getHeight() - 140, 70, 70);
+        LeftButton.setBounds(getWidth() - 250, getHeight() - 140, 70, 70);
         add(CreateButton);
         add(UpButton);
         add(DownButton);
@@ -106,19 +95,17 @@ public class FormStormtrooper extends JFrame {
         add(LeftButton);
         add(canvasStormtrooper);
         setVisible(true);
-        //обработка события изменения размеров окна
         addComponentListener(new ComponentAdapter() {
             public void componentResized(ComponentEvent e) {
-                Width = getWidth() - 15;
-                Height = getHeight() - 35;
-                if (canvasStormtrooper._drawingStormtrooper != null)
-                    canvasStormtrooper._drawingStormtrooper.SetPictureSize(Width, Height);
+                Width = getWidth() - 13;
+                Height = getHeight() - 30;
+                if (canvasStormtrooper._drawingStormtrooper != null)canvasStormtrooper._drawingStormtrooper.SetPictureSize(Width, Height);
                 canvasStormtrooper.setBounds(0,0, getWidth(), getHeight());
-                CreateButton.setBounds(10, getHeight() - 90, 100, 40);
-                UpButton.setBounds(getWidth() - 140, getHeight() - 160, 50, 50);
-                DownButton.setBounds(getWidth() - 140, getHeight() - 100, 50, 50);
-                RightButton.setBounds(getWidth() - 80, getHeight() - 100, 50, 50);
-                LeftButton.setBounds(getWidth() - 200, getHeight() - 100, 50, 50);
+                CreateButton.setBounds(10, getHeight() - 90, 130, 40);
+                UpButton.setBounds(getWidth() - 180, getHeight() - 210, 70, 70);
+                DownButton.setBounds(getWidth() - 180, getHeight() - 140, 70, 70);
+                RightButton.setBounds(getWidth() - 110, getHeight() - 140, 70, 70);
+                LeftButton.setBounds(getWidth() - 250, getHeight() - 140, 70, 70);
             }
         });
     }
