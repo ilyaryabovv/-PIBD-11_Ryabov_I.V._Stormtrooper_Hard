@@ -1,3 +1,5 @@
+package Drawnings.Engines;
+
 public enum NumberOfEngines {
     TWO(2),
     FOUR(4),
