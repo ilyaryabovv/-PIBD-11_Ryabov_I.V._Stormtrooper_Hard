@@ -37,17 +37,17 @@ public class FormStormtrooper extends JFrame {
         Width = getWidth() - 10;
         Height = getHeight() - 34;
         _strategy = null;
-        Icon iconUp = new ImageIcon("Resources\\arrowUp.jpg");
+        Icon iconUp = new ImageIcon("E:\\ООП\\Java\\Lab3\\ProjectStormtrooper\\Resources\\arrowUp.jpg");
         UpButton.setIcon(iconUp);
         UpButton.setName("UP");
         DownButton.setName("DOWN");
-        Icon iconDown = new ImageIcon("Resources\\arrowDown.jpg");
+        Icon iconDown = new ImageIcon("E:\\ООП\\Java\\Lab3\\ProjectStormtrooper\\Resources\\arrowDown.jpg");
         DownButton.setIcon(iconDown);
         LeftButton.setName("LEFT");
-        Icon iconLeft = new ImageIcon("Resources\\arrowLeft.jpg");
+        Icon iconLeft = new ImageIcon("E:\\ООП\\Java\\Lab3\\ProjectStormtrooper\\Resources\\arrowLeft.jpg");
         LeftButton.setIcon(iconLeft);
         RightButton.setName("RIGHT");
-        Icon iconRight = new ImageIcon("Resources\\arrowRight.jpg");
+        Icon iconRight = new ImageIcon("E:\\ООП\\Java\\Lab3\\ProjectStormtrooper\\Resources\\arrowRight.jpg");
         RightButton.setIcon(iconRight);
 
         ButtonStrategy.addActionListener(new ActionListener() {

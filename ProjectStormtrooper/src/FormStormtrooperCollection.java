@@ -20,11 +20,11 @@ public class FormStormtrooperCollection extends JFrame{
     private JButton CreateButton = new JButton("Создать бомбардировщик");;
     private JButton CreateShipButton = new JButton("Создать базовый бомбардировщик");
     private JButton RemoveButton = new JButton("Удалить");
-    private JButton GoToCheckButton = new JButton("Check");
-    private JButton RandomButton = new JButton("RandomShip");
-    private JButton RefreshButton = new JButton("Refresh");
+    private JButton GoToCheckButton = new JButton("На проверку");
+    private JButton RandomButton = new JButton("Случайные");
+    private JButton RefreshButton = new JButton("Обновить");
     private JComboBox ComboBoxCollections = new JComboBox(new String[]{"", "Хранилище"});
-    private JFormattedTextField MaskedTextField;
+    private JFormattedTextField TextField;
     public FormStormtrooperCollection(String title, Dimension dimension) {
         this.title = title;
         this.dimension = dimension;
@@ -72,15 +72,8 @@ public class FormStormtrooperCollection extends JFrame{
         setMinimumSize(dimension);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        MaskFormatter mask = null;
-        try {
-            mask = new MaskFormatter("##");
-            mask.setPlaceholder("00");
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
 
-        MaskedTextField = new JFormattedTextField(mask);
+        TextField = new JFormattedTextField();
 
         ComboBoxCollections.addActionListener(new ActionListener() {
             @Override
@@ -109,10 +102,10 @@ public class FormStormtrooperCollection extends JFrame{
         RemoveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (_company == null || MaskedTextField.getText() == null) {
+                if (_company == null || TextField.getText() == null) {
                     return;
                 }
-                int pos = parseInt(MaskedTextField.getText());
+                int pos = parseInt(TextField.getText());
                 int resultConfirmDialog = JOptionPane.showConfirmDialog(null, "Удалить", "Удаление", JOptionPane.YES_NO_OPTION);
                 if (resultConfirmDialog == JOptionPane.NO_OPTION) return;
                 if (_company._collection.Remove(pos) != null) {
@@ -185,10 +178,10 @@ public class FormStormtrooperCollection extends JFrame{
         ComboBoxCollections.setBounds(getWidth()-190, 10, 150, 20);
         CreateShipButton.setBounds(getWidth()-190, 60, 150, 30);
         CreateButton.setBounds(getWidth()-190, 100, 150, 30);
-        MaskedTextField.setBounds(getWidth()-190,200,150,30);
+        RandomButton.setBounds(getWidth()-190, 140, 150, 30);
+        TextField.setBounds(getWidth()-190,200,150,30);
         RemoveButton.setBounds(getWidth()-190, 240, 150, 30);
         GoToCheckButton.setBounds(getWidth()-190, 280, 150, 30);
-        RandomButton.setBounds(getWidth()-190, 320, 150, 30);
         RefreshButton.setBounds(getWidth()-190, getHeight()-90, 150, 30);
 
         setSize(dimension.width,dimension.height);
@@ -197,7 +190,7 @@ public class FormStormtrooperCollection extends JFrame{
         add(ComboBoxCollections);
         add(CreateShipButton);
         add(CreateButton);
-        add(MaskedTextField);
+        add(TextField);
         add(RemoveButton);
         add(GoToCheckButton);
         add(RandomButton);
@@ -210,10 +203,10 @@ public class FormStormtrooperCollection extends JFrame{
                 ComboBoxCollections.setBounds(getWidth()-190, 10, 150, 20);
                 CreateShipButton.setBounds(getWidth()-190, 60, 150, 30);
                 CreateButton.setBounds(getWidth()-190, 100, 150, 30);
-                MaskedTextField.setBounds(getWidth()-190,200,150,30);
+                TextField.setBounds(getWidth()-190,200,150,30);
                 RemoveButton.setBounds(getWidth()-190, 240, 150, 30);
                 GoToCheckButton.setBounds(getWidth()-190, 280, 150, 30);
-                RandomButton.setBounds(getWidth()-190, 320, 150, 30);
+                RandomButton.setBounds(getWidth()-190, 140, 150, 30);
                 RefreshButton.setBounds(getWidth()-190, getHeight()-90, 150, 30);
             }
         });
