@@ -7,7 +7,7 @@ import Entities.*;
 import  java.awt.*;
 
 public class DrawingStormtrooper extends  DrawingBaseStormtrooper{
-    public IDrawingEngines drawingEngines =null;
+
     public DrawingStormtrooper(int speed, float weight, Color bodyColor, Color additionalColor,boolean rockets, boolean bombs, boolean engines, int typeOfEngines) {
         EntityBaseStormtrooper = new EntityStormtrooper(speed, weight, bodyColor, additionalColor, rockets, bombs, engines);
         if(engines){
@@ -31,6 +31,10 @@ public class DrawingStormtrooper extends  DrawingBaseStormtrooper{
         _startPosY=null;
         _pictureWidth = null;
         _pictureHeight = null;
+    }
+    public DrawingStormtrooper(EntityStormtrooper entityStormtrooper, IDrawingEngines drawingEngines){
+        this.EntityBaseStormtrooper=entityStormtrooper;
+        this.drawingEngines = drawingEngines;
     }
 
     @Override

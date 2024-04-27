@@ -1,9 +1,11 @@
 package Drawnings;
+import Drawnings.Engines.IDrawingEngines;
 import  Entities.*;
 import java.awt.*;
 
 public class DrawingBaseStormtrooper {
     public EntityBaseStormtrooper EntityBaseStormtrooper;
+    public IDrawingEngines drawingEngines =null;
     protected Integer _pictureWidth;
     protected Integer _pictureHeight;
     protected Integer _startPosX;
@@ -24,6 +26,10 @@ public class DrawingBaseStormtrooper {
     public DrawingBaseStormtrooper(int speed, float weight, Color bodyColor) {
         super();
         EntityBaseStormtrooper = new EntityBaseStormtrooper(speed, weight, bodyColor);
+    }
+    public DrawingBaseStormtrooper(EntityBaseStormtrooper entityBaseStormtrooper, IDrawingEngines drawingEngines){
+        this.EntityBaseStormtrooper = entityBaseStormtrooper;
+        this.drawingEngines = drawingEngines;
     }
 
     public boolean SetPictureSize(int width, int height) {
