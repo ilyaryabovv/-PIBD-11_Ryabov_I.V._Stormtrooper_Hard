@@ -1,18 +1,16 @@
-import CollectionGenericObjects.AbstractCompany;
-import CollectionGenericObjects.MassiveGenericObjects;
-import CollectionGenericObjects.StormtrooperSharingService;
+import CollectionGenericObjects.*;
 import Drawnings.DrawingBaseStormtrooper;
 import Drawnings.DrawingStormtrooper;
 import javax.swing.*;
-import javax.swing.text.MaskFormatter;
 import java.awt.*;
 import java.awt.event.*;
-import java.text.ParseException;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Random;
 
 import static java.lang.Integer.parseInt;
 
-public class FormStormtrooperCollection extends JFrame{
+public class FormStormtrooperCollection extends JFrame {
     private String title;
     private Dimension dimension;
     public static CanvasFormStormtrooperCollection<DrawingBaseStormtrooper> _canvasStormtrooper = new CanvasFormStormtrooperCollection<DrawingBaseStormtrooper>();
@@ -36,15 +34,18 @@ public class FormStormtrooperCollection extends JFrame{
     private JButton RefreshButton = new JButton("Обновить");
     private JComboBox ComboBoxCollections = new JComboBox(new String[]{"", "Хранилище"});
     private JFormattedTextField TextField;
+
     public FormStormtrooperCollection(String title, Dimension dimension) {
         this.title = title;
         this.dimension = dimension;
     }
+
     public static void canvasShow() {
         _company.SetPosition();
         _canvasStormtrooper.SetCollectionToCanvas(_company);
         _canvasStormtrooper.repaint();
     }
+
     private void CreateObject(String typeOfClass) {
         if (_company == null) return;
         int speed = (int) (Math.random() * 300 + 100);
@@ -104,49 +105,45 @@ public class FormStormtrooperCollection extends JFrame{
             }
         });
 
-        RemoveButton.addActionListener(new ActionListener() {
+        removeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (_company == null || TextField.getText() == null) {
+                if (_company == null || TextField.getText() == null ) {
                     return;
                 }
                 int pos = parseInt(TextField.getText());
                 int resultConfirmDialog = JOptionPane.showConfirmDialog(null, "Удалить", "Удаление", JOptionPane.YES_NO_OPTION);
                 if (resultConfirmDialog == JOptionPane.NO_OPTION) return;
-                if (_company._collection.Remove(pos) != null) {
-                    System.out.println(pos);
+                DrawingBaseStormtrooper obj = _storageCollection.remove(
+                        listBoxCollection.getSelectedValue().toString(), pos);
+                if (obj != null) {
                     JOptionPane.showMessageDialog(null, "Объект удален");
+                    _collectionRemovedObjects.add(obj);
                     canvasShow();
-                }
-                else {
+                } else {
                     JOptionPane.showMessageDialog(null, "Не удалось удалить объект");
                 }
             }
         });
-
         GoToCheckButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (_company == null)
-                {
+                if (_company == null) {
                     return;
                 }
                 DrawingBaseStormtrooper stormtrooper = null;
                 int counter = 100;
-                while (stormtrooper == null)
-                {
+                while (stormtrooper == null) {
                     stormtrooper = _company.GetRandomObject();
                     counter--;
-                    if (counter <= 0)
-                    {
+                    if (counter <= 0) {
                         break;
                     }
                 }
-                if (stormtrooper == null)
-                {
+                if (stormtrooper == null) {
                     return;
                 }
-                FormStormtrooper form = new FormStormtrooper("Бомбардировщик", new Dimension(1000,750));
+                FormStormtrooper form = new FormStormtrooper("Бомбардировщик", new Dimension(1000, 750));
                 form.addWindowListener(new WindowAdapter() {
                     @Override
                     public void windowClosing(WindowEvent e) {
@@ -162,8 +159,7 @@ public class FormStormtrooperCollection extends JFrame{
         RefreshButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (_company == null)
-                {
+                if (_company == null) {
                     return;
                 }
                 canvasShow();
@@ -172,22 +168,14 @@ public class FormStormtrooperCollection extends JFrame{
         RandomButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(_company==null){
+                if (_company == null) {
                     return;
                 }
                 FormAdditionalCollection form = new FormAdditionalCollection();
                 form.setCompany(_company);
             }
         });
-        _canvasStormtrooper.setBounds(0, 0, getWidth()-200, getHeight());
-        ComboBoxCollections.setBounds(getWidth()-190, 10, 150, 20);
-        CreateShipButton.setBounds(getWidth()-190, 60, 150, 30);
-        CreateButton.setBounds(getWidth()-190, 100, 150, 30);
-        RandomButton.setBounds(getWidth()-190, 140, 150, 30);
-        TextField.setBounds(getWidth()-190,200,150,30);
-        RemoveButton.setBounds(getWidth()-190, 240, 150, 30);
-        GoToCheckButton.setBounds(getWidth()-190, 280, 150, 30);
-        RefreshButton.setBounds(getWidth()-190, getHeight()-90, 150, 30);
+
 
 
         buttonAddCollection.addActionListener(new ActionListener() {
@@ -285,29 +273,33 @@ public class FormStormtrooperCollection extends JFrame{
         RefreshButton.setBounds(getWidth() - 190, 665, 150, 30);
         setSize(dimension.width, dimension.height);
         setLayout(null);
+        add(textBoxCollection);
+        add(radioButtonMassive);
+        add(radioButtonList);
+        add(buttonAddCollection);
+        add(listBoxCollection);
+        add(buttonRemoveCollection);
+        add(buttonCreateCompany);
+        add(labelCollectionName);
+        add(removeObjectsButton);
         add(_canvasStormtrooper);
         add(ComboBoxCollections);
         add(createShipButton);
         add(createButton);
         add(TextField);
-        add(RemoveButton);
+        add(removeButton);
         add(GoToCheckButton);
         add(RandomButton);
         add(RefreshButton);
         setVisible(true);
-
-        addComponentListener(new ComponentAdapter() {
-            public void componentResized(ComponentEvent e) {
-                _canvasStormtrooper.setBounds(0, 0, getWidth()-200, getHeight()-70);
-                ComboBoxCollections.setBounds(getWidth()-190, 10, 150, 20);
-                CreateShipButton.setBounds(getWidth()-190, 60, 150, 30);
-                CreateButton.setBounds(getWidth()-190, 100, 150, 30);
-                TextField.setBounds(getWidth()-190,200,150,30);
-                RemoveButton.setBounds(getWidth()-190, 240, 150, 30);
-                GoToCheckButton.setBounds(getWidth()-190, 280, 150, 30);
-                RandomButton.setBounds(getWidth()-190, 140, 150, 30);
-                RefreshButton.setBounds(getWidth()-190, getHeight()-90, 150, 30);
+    }
+    private void RerfreshListBoxItems() {
+        DefaultListModel<String> list = new DefaultListModel<String>();
+        for (String name : _storageCollection.Keys()) {
+            if (name != "") {
+                list.addElement(name);
             }
-        });
+        }
+        listBoxCollection.setModel(list);
     }
 }

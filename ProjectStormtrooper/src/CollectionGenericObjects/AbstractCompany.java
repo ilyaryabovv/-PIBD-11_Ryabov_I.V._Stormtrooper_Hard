@@ -18,8 +18,7 @@ public abstract class AbstractCompany {
         _pictureWidth = picWidth;
         _pictureHeight = picHeight;
         _collection = collection;
-        System.out.println(_pictureHeight+" "+_pictureWidth+" "+_placeSizeHeight+" "+_placeSizeWidth);
-        _collection.SetMaxCount(GetMaxCount(), (Class) DrawingBaseStormtrooper.class);
+        _collection.SetMaxCount(GetMaxCount());
     }
     //Перегрузок нет
     public DrawingBaseStormtrooper GetRandomObject()

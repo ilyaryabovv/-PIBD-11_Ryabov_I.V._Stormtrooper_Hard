@@ -1,15 +1,19 @@
 package CollectionGenericObjects;
 
+import Drawnings.DrawingBaseStormtrooper;
+
 import java.lang.reflect.Array;
 
 
 public class MassiveGenericObjects<T> implements ICollectionGenericObjects<T>{
-    private T[] _collection;
+    private T[] _collection = null;
     private int Count;
-    public void SetMaxCount(int size, Class<T> type) {
+    public void SetMaxCount(int size) {
         if (size > 0) {
-            _collection = (T[]) Array.newInstance(type, size);
-            Count = size;
+            if (_collection == null) {
+                _collection = (T[]) Array.newInstance((Class) DrawingBaseStormtrooper.class, size);
+                Count = size;
+            }
         }
     }
     @Override
@@ -27,36 +31,6 @@ public class MassiveGenericObjects<T> implements ICollectionGenericObjects<T>{
                 return index;
             }
             ++index;
-        }
-        return -1;
-    }
-    @Override
-    public int Insert(T obj, int position) {
-        if (position >= getCount() || position < 0)
-            return -1;
-        if (_collection[position] == null) {
-            _collection[position] = obj;
-            return position;
-        }
-        int index = position + 1;
-        while (index < getCount())
-        {
-            if (_collection[index] == null)
-            {
-                _collection[index] = obj;
-                return index;
-            }
-            ++index;
-        }
-        index = position - 1;
-        while (index >= 0)
-        {
-            if (_collection[index] == null)
-            {
-                _collection[index] = obj;
-                return index;
-            }
-            --index;
         }
         return -1;
     }

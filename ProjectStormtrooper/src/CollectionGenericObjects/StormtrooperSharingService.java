@@ -26,16 +26,13 @@ public class StormtrooperSharingService  extends AbstractCompany{
     protected void SetObjectsPosition() {
         int width = _pictureWidth / _placeSizeWidth;
         int height = _pictureHeight / _placeSizeHeight;
-
         int curWidth = width - 4;
         int curHeight = 0;
-
         for (int i = 0; i < (_collection.getCount()); i++) {
             if (_collection.Get(i) != null) {
                 _collection.Get(i).SetPictureSize(_pictureWidth, _pictureHeight);
                 _collection.Get(i).SetPosition(_placeSizeWidth * curWidth + 16, curHeight * _placeSizeHeight + 3);
             }
-
             if (curWidth < width-1)
                 curWidth++;
             else
