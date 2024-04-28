@@ -8,25 +8,8 @@ import  java.awt.*;
 
 public class DrawingStormtrooper extends  DrawingBaseStormtrooper{
 
-    public DrawingStormtrooper(int speed, float weight, Color bodyColor, Color additionalColor,boolean rockets, boolean bombs, boolean engines, int typeOfEngines) {
+    public DrawingStormtrooper(int speed, float weight, Color bodyColor, Color additionalColor,boolean rockets, boolean bombs, boolean engines) {
         EntityBaseStormtrooper = new EntityStormtrooper(speed, weight, bodyColor, additionalColor, rockets, bombs, engines);
-        if(engines){
-            switch(typeOfEngines){
-                case 1:
-                    drawingEngines = new DrawingEngines();
-                    drawingEngines.setAmountOfEngines((int)((Math.random()*3)+1)*2);
-                    break;
-                case 2:
-                    drawingEngines = new DrawingTriangleEngines();
-                    drawingEngines.setAmountOfEngines((int)((Math.random()*3)+1)*2);
-                    break;
-                case 3:
-                    drawingEngines = new DrawingOvalEngines();
-                    drawingEngines.setAmountOfEngines((int)((Math.random()*3)+1)*2);
-                    break;
-            }
-
-        }
         _startPosX=null;
         _startPosY=null;
         _pictureWidth = null;

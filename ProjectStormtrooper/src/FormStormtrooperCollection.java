@@ -25,7 +25,6 @@ public class FormStormtrooperCollection extends JFrame {
     private JButton buttonRemoveCollection = new JButton("Удалить");
     private JButton buttonCreateCompany = new JButton("Создать компанию");
     private JButton createButton = new JButton("Создать бомбардировщик");
-    private JButton createShipButton = new JButton("Создать базовый бомбардировщик");
     private JButton removeButton = new JButton("Удалить");
     private JButton removeObjectsButton = new JButton("Удаленные объекты");
     private JButton GoToCheckButton = new JButton("На проверку");
@@ -45,59 +44,19 @@ public class FormStormtrooperCollection extends JFrame {
         _canvasStormtrooper.repaint();
     }
 
-    private void CreateObject(String typeOfClass) {
-        if (_company == null) return;
-        int speed = (int) (Math.random() * 300 + 100);
-        float weight = (float) (Math.random() * 3000 + 1000);
-        Color bodyColor = getColor();
-        DrawingBaseStormtrooper drawingBaseStormtrooper;
-        switch (typeOfClass) {
-            case "DrawingBaseStormtrooper":
-                drawingBaseStormtrooper = new DrawingBaseStormtrooper(speed, weight, bodyColor);
-                break;
-            case "DrawingStormtrooper":
-                Color additionalColor = getColor();
-                boolean rockets = new Random().nextBoolean();
-                boolean bombs = new Random().nextBoolean();
-                boolean engines = new Random().nextBoolean();
-                int typeOfEngine = ((int) ((Math.random() * 3) + 1));
-                drawingBaseStormtrooper = new DrawingStormtrooper(speed, weight, bodyColor, additionalColor, rockets, bombs, engines, typeOfEngine);
-                break;
-            default:
-                return;
-        }
-        if (_company._collection.Insert(drawingBaseStormtrooper) != -1) {
-            JOptionPane.showMessageDialog(null, "Объект добавлен");
-            canvasShow();
-        } else {
-            JOptionPane.showMessageDialog(null, "Объект не удалось добавить");
-        }
-    }
-
-    public Color getColor() {
-        Color initializator = new Color((int) (Math.random() * 255 + 0), (int) (Math.random() * 255 + 0), (int) (Math.random() * 255 + 0));
-        Color color = JColorChooser.showDialog(this, "Цвет", initializator);
-        return color;
-    }
 
     public void Init() {
         setTitle(title);
         setMinimumSize(dimension);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-
         TextField = new JFormattedTextField();
-
-        createShipButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                CreateObject("DrawingBaseStormtrooper");
-            }
-        });
         createButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                CreateObject("DrawingStormtrooper");
+                if (_company==null) return;
+                FormStormtrooperConfig form = new FormStormtrooperConfig("",new Dimension(800,300));
+                form.setCompany(_company);
+                form.Init();
             }
         });
 
@@ -257,7 +216,6 @@ public class FormStormtrooperCollection extends JFrame {
         buttonRemoveCollection.setBounds(getWidth()-190, 195, 150, 20);
         ComboBoxCollections.setBounds(getWidth() - 190, 225, 150, 20);
         buttonCreateCompany.setBounds(getWidth()-190, 255, 150, 20);
-        createShipButton.setBounds(getWidth() - 190, 285, 150, 30);
         createButton.setBounds(getWidth() - 190, 325, 150, 30);
         RandomButton.setBounds(getWidth() - 190, 365, 150, 30);
         removeObjectsButton.setBounds(getWidth()-190, 505, 150, 30);
@@ -278,7 +236,6 @@ public class FormStormtrooperCollection extends JFrame {
         add(removeObjectsButton);
         add(_canvasStormtrooper);
         add(ComboBoxCollections);
-        add(createShipButton);
         add(createButton);
         add(TextField);
         add(removeButton);
